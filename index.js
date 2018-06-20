@@ -1,43 +1,53 @@
-// document.body.innerHTML = "Hello world!";
+var color;
+let divParent = document.createElement('div');
+divParent.className = "Parent";
 
-let main = document.createElement('div');
-main.className = 'divContainer';
-document.body.appendChild(main);
-let className;
-
-for(let i=0;i<50;i++) {
-    const rowDiv=document.createElement('div');
-    rowDiv.className = 'rowDivContainer';
-    main.appendChild(rowDiv);
-
-    for(let j=0;j<50;j++) {
-        const div=document.createElement('div');
-        div.className='divElem';
-        div.addEventListener("click",(e)=>{
-            e.target.className='colorChange';
-
-            if(typeof className !=='undefined'){
-                e.target.className=className;
-                e.target.style="border-radius:0"
-            }
-
+let divGrid = document.createElement('div');
+for (let i = 0; i < 30; i++) {
+    let div = document.createElement('div');
+    div.className = "Row";
+    for (let j = 0; j < 40; j++) {
+        const divx = document.createElement('div');
+        divx.className = "Column";
+        divx.addEventListener("click", () => {
+            divx.style.backgroundColor = color;
         });
-        rowDiv.appendChild(div);
+        div.appendChild(divx);
     }
+    divGrid.appendChild(div);
 }
-const colorArray=['red','blue','green','black','purple','aqua','pink','lightcoral','gold',
-    'brown','blueviolet','olivedrab','blanchedalmond','darkorange','yellow','plum','cadetblue',
-    'paleturquoise','tomato','turquoise','peachpuff','silver','lightseagreen','slateblue',
-    'lavender','greenyellow','rebeccapurple'];
-let palette = document.createElement('div');
-palette.className = 'Pal';
-document.body.appendChild(palette);
-for(let i=0;i<33;i++) {
-    const color = document.createElement('div');
-    color.className = 'palColor'+i;
-    //color.style="background-color: blue"
-    palette.appendChild(color);
-     color.addEventListener("click",(e)=>{
-         className = e.target.className;
-     })
+divParent.appendChild(divGrid);
+
+
+
+const colors = ['red','blue','yellow','green','grey','magenta','peru','pink','purple', 'white','black','aqua'];
+let div = document.createElement('div');
+div.style = "display:flex; justify-content:center";
+for(let c = 0;c < colors.length;c++){
+    let div1 = document.createElement('div');
+    div1.className = "ColorPaletteRow"
+    div1.addEventListener("click", () => {
+        color = colors[c];
+        document.getElementById("selectedColor").style.backgroundColor = colors[c];
+    });
+    div1.style.background = colors[c];
+    div.appendChild(div1);
 }
+
+let div1 = document.createElement('div');
+let divChild  =  document.createElement('div');
+divChild.innerHTML = "CURRENT COLOR >" ;
+div1.appendChild(divChild);
+div1.style = "display:flex;align-items:center"
+div.appendChild(div1);
+let div2 = document.createElement('div');
+div2.id="selectedColor";
+div2.className="SelectedColorName";
+div.appendChild(div2);
+
+divParent.appendChild(div);
+
+document.body.appendChild(divParent);
+
+
+
